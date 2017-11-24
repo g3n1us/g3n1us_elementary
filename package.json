@@ -1,0 +1,19 @@
+{
+  "name": "g3n1us_elementary",
+  "version": "0.1.0",
+  "description": "A frontend framework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sean Bethel",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "es6-promise": "~3.1.2",
+    "g3n1us_helpers": "^1.0.4",
+    "handlebars": "4.0.5",
+    "jquery": "^3.2.1",
+    "minify": "~2.0.8",
+    "navigo": "^5.2.0"
+  }
+}
