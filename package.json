@@ -1,7 +1,8 @@
 {
   "name": "g3n1us_elementary",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A frontend framework.",
+  "repository": {"type": "git", "url": "https://github.com/g3n1us/g3n1us_elementary.git"},  
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
