@@ -22,8 +22,8 @@ Add a route to your application
 // Set some options; defaults are shown below
 var config = {
 	development: true,
-	containing_element: '#elementary_container',
-	use_hash: true,
+	containing_element: '#elementary_container', // this is the element that the app will load into. If it doesn't exist, it will be prepended to 'body'
+	use_hash: true, // Use hash based URIs instead of popstate
 	hash_prefix: '#'
 }
 
@@ -57,3 +57,7 @@ $(document).on('click', '[href]', function(e){
 });
 
 ```
+
+## Thanks to:
+[Navigo.js](https://github.com/krasimir/navigo)
+[Handlebars.js](http://handlebarsjs.com/)
