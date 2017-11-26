@@ -1,6 +1,6 @@
 {
   "name": "g3n1us_elementary",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A frontend framework.",
   "repository": {
     "type": "git",
@@ -23,5 +23,6 @@
   },
   "devDependencies": {
     "webpack": "^3.8.1"
-  }
+  },
+  { "bin" : { "elementary_new_route" : "./bin/new_route.js" } }
 }
