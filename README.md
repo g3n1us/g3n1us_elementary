@@ -59,5 +59,5 @@ $(document).on('click', '[href]', function(e){
 ```
 
 ## Thanks to:
-[Navigo.js](https://github.com/krasimir/navigo)
-[Handlebars.js](http://handlebarsjs.com/)
+- [Navigo.js](https://github.com/krasimir/navigo)
+- [Handlebars.js](http://handlebarsjs.com/)
