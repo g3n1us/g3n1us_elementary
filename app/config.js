@@ -1,5 +1,8 @@
 var config = {
 	development: true,
+	containing_element: '#elementary_container',
+	use_hash: true,
+	hash_prefix: '#',
 	use_auth: false,
 	use_editor: false,
 	root_path: typeof window !== "undefined" ? window.location.protocol + '//' + window.location.host : null,

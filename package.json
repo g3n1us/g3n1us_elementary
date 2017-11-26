@@ -2,10 +2,14 @@
   "name": "g3n1us_elementary",
   "version": "0.1.2",
   "description": "A frontend framework.",
-  "repository": {"type": "git", "url": "https://github.com/g3n1us/g3n1us_elementary.git"},  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g3n1us/g3n1us_elementary.git"
+  },
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
   },
   "author": "Sean Bethel",
   "license": "BSD-2-Clause",
@@ -16,5 +20,8 @@
     "jquery": "^3.2.1",
     "minify": "~2.0.8",
     "navigo": "^5.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^3.8.1"
   }
 }

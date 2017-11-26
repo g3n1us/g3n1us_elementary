@@ -6,6 +6,8 @@ const Handlebars = require('handlebars');
 // const views = require('./precompiled_views');
 const $ = require('jquery');
 const misc = require('./misc');
+const path = require('path');
+
 
 /*
 if(!window.location.hash.length)
@@ -23,6 +25,21 @@ class Router{
 		}
 		this.query = this.data.query;
 		this.params = this.data.params;
+		this.navigo.hooks({
+		  before: function(done, params) {
+			  done();
+			  
+		  },
+		  after: (params) => {
+			  let resolved = this.navigo.lastRouteResolved();
+			  // Set active class on nav links
+				$('nav, .nav').find('.active').removeClass('active');
+				$('nav, .nav').find('[href="'+resolved.url+'"], [href="'+resolved.url+'/"]').addClass('active');	
+			  
+		  }
+		});
+		
+		
 //     return new Proxy(this, this);
 	}
 	
@@ -34,7 +51,16 @@ class Router{
 			var callback = ('home' in this.app.route_handlers) ? this.app.route_handlers.home : args[0];
 			this.navigo.on((query) => {
 				this.data.query = parseQuery(query);
-				callback(this);
+				if(typeof callack === 'function')
+					callback(this);
+				else{
+					if('home' in this.app.templates) {
+						this.app.view = {
+							name: 'home',
+						}
+						return;
+					}
+				}
 			});				
 		}
 		else if(args.length === 1){
@@ -46,7 +72,6 @@ class Router{
 					let routestring = args[0].replace(/\/?:.*\/?/g, '.').split('.').filter(function(v){
 						return v.length;
 					}).join('.');
-					
 // 					let template = (routestring in this.app.templates) ? this.app.templates[routestring] : this.app.templates.default;
 					let handler = (routestring in this.app.route_handlers) ? this.app.route_handlers[routestring] : false;
 					console.log(this.app.route_handlers)
@@ -79,14 +104,25 @@ class Router{
 		this.navigo.notFound(handler);
 	}
 	
+	navigate(arg1, arg2){
+		this.navigo.navigate(arg1, arg2);					
+	}
+	
+	link(path){
+		return this.navigo.link(path);
+	}
+	
 }
 
-var App = function(){
+var App = function(user_config){
+	for(var i in user_config)
+		config[i] = user_config[i];
+		
 	var _this = this;
 
 	_this.identity = new Identity();
 	
-	_this.router = new Router(config.root_path, true, '#', _this);
+	_this.router = new Router(config.root_path, config.use_hash, config.hash_prefix, _this);
 	
 	_this.logged_in = _this.identity.logged_in || _this.identity.user !== null;
 	
@@ -100,6 +136,21 @@ var App = function(){
 	
 	_this.handlebars = Handlebars;
 	
+	_this.jquery = $;
+	
+	_this.addTemplate = function(name, path){
+		_this._templates = _this._templates || [];
+		var tpl_promise = new Promise((resolve, reject) => {
+			$.get(path).then(data => {
+				resolve({name: name, data: data});
+			});
+			
+		});
+		_this._templates.push(tpl_promise);
+		//	below won't work 
+		// 	return _this.handlebars.compile(require(path.resolve(__dirname, required_path)));
+	}
+	
 	_this.booted = false;
 	
 	_this.current_project = null;
@@ -108,9 +159,16 @@ var App = function(){
 	
 	_this.show = function(view){
 		if(typeof window !== "undefined"){
-			var $t = view.container ? $(view.container) : $('#main');
+			view.container = view.container || config.containing_element;
+			if(!$(view.container).length){
+				let el = document.createElement('div');
+				el.id = config.containing_element;
+				var $t = $(el);
+				$t.prependTo('body');
+			}
+			else
+				var $t = $(view.container);
 			var $v = _this.templates[view.name](view.data);
-	
 			$t.html($v);
 		}
 		else return false;
@@ -149,11 +207,19 @@ var App = function(){
 		
 	_this.run = function(callback){
 		_this.identity.startApp(_this, callback || function(){});
-		return _this;
+		
+		Promise.all(_this._templates).then(t => {
+			t.forEach(v => {
+				_this.templates[v.name] = _this.handlebars.compile(v.data);
+			});
+			_this.router.resolve();
+			if(typeof callback === 'function') callback(_this);
+			return Promise.resolve(_this);
+		});
 	}
 	
 	_this.save = function(redirect){
-		localStorage.redirectTo = redirect ? redirect : window.location.hash;
+		localStorage.redirectTo = redirect || window.location.hash;
 		$('form').submit();
 	}
 	
@@ -215,7 +281,7 @@ if(typeof window !== "undefined"){
 }
 
 if(typeof window !== "undefined")
-	window.App = App;
+	window.Elementary = App;
 
 
 if(typeof module !== "undefined")
