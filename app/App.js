@@ -2,12 +2,14 @@ const Identity = require('./Identity');
 const config = require('./config');
 const Navigo = require('navigo');
 const g3n1us_helpers = require('g3n1us_helpers');
+const ElementaryModel = require('g3n1us_elementary_model');
+console.log(ElementaryModel)
+// const Model = App;
 const Handlebars = require('handlebars');
 // const views = require('./precompiled_views');
 const $ = require('jquery');
 const misc = require('./misc');
 const path = require('path');
-
 
 /*
 if(!window.location.hash.length)

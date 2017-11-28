@@ -567,12 +567,14 @@ const Identity = __webpack_require__(5);
 const config = __webpack_require__(0);
 const Navigo = __webpack_require__(6);
 const g3n1us_helpers = __webpack_require__(1);
+// const ElementaryModel = require('g3n1us_elementary_model');
+console.log(ElementaryModel)
+// const Model = App;
 const Handlebars = __webpack_require__(2);
 // const views = require('./precompiled_views');
 const $ = __webpack_require__(7);
 const misc = __webpack_require__(8);
 const path = __webpack_require__(9);
-
 
 /*
 if(!window.location.hash.length)

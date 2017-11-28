@@ -1,6 +1,6 @@
 {
   "name": "g3n1us_elementary",
-  "version": "0.1.45",
+  "version": "0.1.47",
   "description": "A frontend framework.",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "es6-promise": "~3.1.2",
+    "g3n1us_elementary_model": "^0.1.0",
     "g3n1us_helpers": "^1.0.4",
     "handlebars": "4.0.5",
     "jquery": "^3.2.1",
@@ -24,7 +25,7 @@
   "devDependencies": {
     "webpack": "^3.8.1"
   },
-  "bin" : {
-	  "elementary_new_route" : "./bin/new_route"
-  } 
+  "bin": {
+    "elementary_new_route": "./bin/new_route"
+  }
 }
