@@ -32544,6 +32544,7 @@ function stringMd5(string) {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.Connection = undefined;
 
 var _pouchdb = __webpack_require__(94);
 
@@ -32575,7 +32576,7 @@ import Relation from './Relation';
 import Model from './Model';
 */
 
-var Connection = function Connection() {
+var Connection = exports.Connection = function Connection() {
 	var dbname = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'g3n1us_app';
 
 	_classCallCheck(this, Connection);
@@ -32583,8 +32584,6 @@ var Connection = function Connection() {
 	this.db = new _pouchdb2.default(dbname);
 	this.PouchDB = _pouchdb2.default;
 };
-
-exports.default = Connection;
 
 /***/ }),
 /* 144 */
@@ -32596,6 +32595,7 @@ exports.default = Connection;
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.App = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -32613,7 +32613,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var App = function (_Connection) {
+var App = exports.App = function (_Connection) {
 	_inherits(App, _Connection);
 
 	function App() {
@@ -32734,9 +32734,6 @@ var App = function (_Connection) {
 	return App;
 }(_Connection2.Connection); // close Class
 
-
-exports.default = App;
-
 /***/ }),
 /* 145 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32747,6 +32744,7 @@ exports.default = App;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Container = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -32759,7 +32757,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 // Container holds all persistent data. All methods are static so the overall application state is held in one context
-var Container = function () {
+var Container = exports.Container = function () {
   function Container() {
     _classCallCheck(this, Container);
   }
@@ -32799,8 +32797,6 @@ var Container = function () {
   return Container;
 }();
 
-exports.default = Container;
-
 /***/ }),
 /* 146 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -32811,6 +32807,7 @@ exports.default = Container;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.QueryBuilder = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -32826,7 +32823,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var QueryBuilder = function (_App) {
+var QueryBuilder = exports.QueryBuilder = function (_App) {
   _inherits(QueryBuilder, _App);
 
   function QueryBuilder(type, query) {
@@ -32991,8 +32988,6 @@ var QueryBuilder = function (_App) {
   return QueryBuilder;
 }(_App2.App);
 
-exports.default = QueryBuilder;
-
 /***/ }),
 /* 147 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -33003,7 +32998,7 @@ exports.default = QueryBuilder;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Container = undefined;
+exports.Model = exports.Container = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -33063,7 +33058,7 @@ _pouchdb2.default.plugin(_relationalPouch2.default);
 
 exports.Container = _Container.Container;
 
-var Model = function (_Relation) {
+var Model = exports.Model = function (_Relation) {
   _inherits(Model, _Relation);
 
   // calling via new operator inserts into db if needed and returns based on constructor's values. if no values, looks for the set method
@@ -33247,9 +33242,6 @@ if(typeof module == 'object'){
 	module.exports = Model;
 }
 */
-
-
-exports.default = Model;
 
 /***/ }),
 /* 148 */
@@ -43293,6 +43285,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Relation = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -43323,7 +43316,7 @@ import Container from './Container';
 
 // import Model from './Model';
 
-var Relation = function (_QueryBuilder) {
+var Relation = exports.Relation = function (_QueryBuilder) {
   _inherits(Relation, _QueryBuilder);
 
   function Relation() {
@@ -43369,8 +43362,6 @@ var Relation = function (_QueryBuilder) {
 
   return Relation;
 }(_QueryBuilder2.QueryBuilder);
-
-exports.default = Relation;
 
 /***/ }),
 /* 370 */
