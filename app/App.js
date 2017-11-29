@@ -3,7 +3,7 @@ const config = require('./config');
 const Navigo = require('navigo');
 const g3n1us_helpers = require('g3n1us_helpers');
 const ElementaryModel = require('g3n1us_elementary_model');
-console.log(ElementaryModel)
+console.log('ElementaryModel', ElementaryModel)
 // const Model = App;
 const Handlebars = require('handlebars');
 // const views = require('./precompiled_views');
@@ -123,6 +123,8 @@ var App = function(user_config){
 	var _this = this;
 
 	_this.identity = new Identity();
+	
+	_this.Model = ElementaryModel;
 	
 	_this.router = new Router(config.root_path, config.use_hash, config.hash_prefix, _this);
 	
