@@ -1,7 +1,12 @@
+const path = require('path');
+
 module.exports = {
   entry: './index.js',
   output: {
-    filename: 'dist/Elementary.js'
+    filename: 'Elementary.js',
+    path: path.resolve(__dirname, 'dist'),
+    libraryTarget: "umd",
+		library: "Elementary"    
   },
 	resolve:
 		{
