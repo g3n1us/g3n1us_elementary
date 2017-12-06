@@ -11,11 +11,6 @@ const $ = require('jquery');
 const misc = require('./misc');
 const path = require('path');
 
-/*
-if(!window.location.hash.length)
-	window.location.hash = '';
-*/
-
 
 class Router{
 	constructor(root, useHash, hash, app){
@@ -28,19 +23,28 @@ class Router{
 		this.query = this.data.query;
 		this.params = this.data.params;
 		this.navigo.hooks({
-		  before: function(done, params) {
+		  before: (done, params) => {
+			  let handler = this.app.beforePageChangeHandler || window.beforePageChangeHandler;
+			  if(typeof handler === 'function')
+				  handler();
 			  done();
 			  
 		  },
 		  after: (params) => {
 			  let resolved = this.navigo.lastRouteResolved();
+  			if(resolved[1] === '/')  resolved = resolved.slice(1);
 			  // Set active class on nav links
-				$('nav, .nav').find('.active').removeClass('active');
-				$('nav, .nav').find('[href="'+resolved.url+'"], [href="'+resolved.url+'/"]').addClass('active');	
-			  
+			  console.log(resolved);
+			  if(this.app.config.auto_link_nav){
+					$('nav, .nav').find('.active').removeClass('active');
+					$('nav, .nav').find('[href="'+resolved.url+'"], [href="'+resolved.url+'/"]').addClass('active');				  
+			  }
+
+			  let handler = this.app.afterPageChangeHandler || window.afterPageChangeHandler;
+			  if(typeof handler === 'function')
+				  handler();				
 		  }
 		});
-		
 		
 //     return new Proxy(this, this);
 	}
@@ -49,11 +53,12 @@ class Router{
 		var args = Array.from(arguments);
 		
 		if(args.length === 0 || typeof args[0] === 'function'){
+			console.log(this.app.route_handlers);
 			// it is the default route, so the first argument is a callback with the query as a single argument
 			var callback = ('home' in this.app.route_handlers) ? this.app.route_handlers.home : args[0];
 			this.navigo.on((query) => {
 				this.data.query = parseQuery(query);
-				if(typeof callack === 'function')
+				if(typeof callback === 'function')
 					callback(this);
 				else{
 					if('home' in this.app.templates) {
@@ -121,10 +126,12 @@ var App = function(user_config){
 		config[i] = user_config[i];
 		
 	var _this = this;
+	
+	_this.config = config;
 
 	_this.identity = new Identity();
 	
-	_this.Model = ElementaryModel;
+	_this.Model = ElementaryModel.Model;
 	
 	_this.router = new Router(config.root_path, config.use_hash, config.hash_prefix, _this);
 	
@@ -148,7 +155,6 @@ var App = function(user_config){
 			$.get(path).then(data => {
 				resolve({name: name, data: data});
 			});
-			
 		});
 		_this._templates.push(tpl_promise);
 		//	below won't work 
@@ -166,9 +172,10 @@ var App = function(user_config){
 			view.container = view.container || config.containing_element;
 			if(!$(view.container).length){
 				let el = document.createElement('div');
-				el.id = config.containing_element;
+				el.id = config.containing_element.replace('#', '');
 				var $t = $(el);
 				$t.prependTo('body');
+				console.warn("Heads up! The containing element for Elementary wasn't there, so I made one and prepended ", el, " to document.body.");
 			}
 			else
 				var $t = $(view.container);
@@ -211,7 +218,7 @@ var App = function(user_config){
 		
 	_this.run = function(callback){
 		_this.identity.startApp(_this, callback || function(){});
-		
+		_this._templates = _this._templates || [];
 		Promise.all(_this._templates).then(t => {
 			t.forEach(v => {
 				_this.templates[v.name] = _this.handlebars.compile(v.data);
