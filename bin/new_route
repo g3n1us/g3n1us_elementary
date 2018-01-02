@@ -12,12 +12,22 @@ then
 mkdir route_handlers
 fi
 
+if [ ! -d js ]
+then
+mkdir js
+fi
+
+echo "app.addTemplate('$1', './handlebars/$1.hbs'); app.router.route('$1');" >> "js/routes.js"
+
 if [ ! -f "handlebars/$1.hbs" ]
 then
 echo "<h1>$1</h1>" >> "handlebars/$1.hbs"
 fi
 
+
 if [ ! -f "route_handlers/$1.js" ]
 then
 echo "" >> "route_handlers/$1.js"
 fi
+
+		
