@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+if [ ! -d js ]
+then
+mkdir js
+fi
+		
+cp ./node_modules/g3n1us_elementary/dist/Elementary.js js/Elementary.js
