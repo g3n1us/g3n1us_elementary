@@ -14,8 +14,9 @@
   "author": "Sean Bethel",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "core-js": "^3.6.5",
     "es6-promise": "~3.1.2",
-    "g3n1us_elementary_model": "^0.1.0",
+    "g3n1us_elementary_model": "^0.1.11",
     "g3n1us_helpers": "^1.0.4",
     "handlebars": "^4.7.6",
     "jquery": "^3.5.1",
@@ -24,7 +25,8 @@
     "uglifyjs-webpack-plugin": "^2.2.0"
   },
   "devDependencies": {
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "cryptiles": ">=4.1.2"
   },
   "bin": {
     "elementary_new_route": "./bin/new_route",
