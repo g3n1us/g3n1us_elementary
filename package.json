@@ -28,7 +28,9 @@
     "cryptiles": ">=4.1.2",
     "mem": ">=4.0.0",
     "serialize-javascript": ">=2.1.1",
-    "webpack": "^4.43.0"
+    "webpack": "^4.43.0",
+    "glob-parent": ">=5.1.2",
+    "node-fetch": ">=2.6.1"
   },
   "bin": {
     "elementary_new_route": "./bin/new_route",
